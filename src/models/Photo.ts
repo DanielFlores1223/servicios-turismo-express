@@ -1,3 +1,5 @@
+//Esta interfaz se tomo como objeto para el carrusel de imagenes en el front
+
 import { Schema, model, Document } from 'mongoose';
 
 const schema = new Schema({
@@ -8,7 +10,6 @@ const schema = new Schema({
 
 export interface IPhoto extends Document {//UNA INTERFAZ es una descripcion de un objeto auqui trabajamos con typescript por eso es pone s minusculas
     title: string;
-    description: string;
     imagePath: string;
 }
 

@@ -1,3 +1,5 @@
+//Este controlador se tomo para el carrusel de imagenes en el front
+
 import { Request, Response } from 'express';//importamos los objetos res y response
 import fs from 'fs-extra';//para eliminar foto
 import path from 'path';
@@ -11,8 +13,8 @@ export async function getPhotos(req: Request, res: Response): Promise<Response> 
 };
 
 export async function createPhoto(req: Request, res: Response): Promise<Response> {
-    const { title, description } = req.body;//desde request body quiero extraer title y des
-    const newPhoto = { title, description, imagePath: req.file.path };//nuevo objeto newPhoto
+    const { title } = req.body;//desde request body quiero extraer title y des
+    const newPhoto = { title, imagePath: req.file.path };//nuevo objeto newPhoto
     const photo = new Photo(newPhoto);
     await photo.save();//await porque es un metodo asincrono y va tomar algo de tiempo
     return res.json({
@@ -38,10 +40,9 @@ export async function deletePhoto(req: Request, res: Response): Promise<Response
 
 export async function updatePhoto(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const { title, description } = req.body;
+    const { title} = req.body;
     const updatedPhoto = await Photo.findByIdAndUpdate(id, {
-        title,
-        description
+        title
     });
     return res.json({
         message: 'Imagen modificada',
