@@ -118,11 +118,12 @@ router.post('/modificar', async(req,res)=>{
    res.send(usuario_mod)
 })
 router.post('/eliminar', async(req, res) => {
-  let usuario = await usuarios.findOne({ email: req.body.email })
+  console.log(req.body)
+  let usuario = await usuarios.findOne({ _id: req.body.id })
   if (!usuario) {
       return res.status(400).send("usuario no encontrado")
   }
-  await usuarios.findOneAndDelete({ email: req.body.email }, function(err, usuarioeliminado) {
+  await usuarios.findOneAndDelete({ _id: req.body.id }, function(err, usuarioeliminado) {
       if (err) { res.send(err) }
       res.json({ Mensaje: 'usuairo eliminado' })
   })
