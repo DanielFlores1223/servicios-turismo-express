@@ -11,8 +11,8 @@ export async function getEmpresas(req: Request, res: Response): Promise<Response
 };
 
 export async function createEmpresa(req: Request, res: Response): Promise<Response> {
-    const { nombreEmpresa, giro, redsocial, telefono } = req.body;
-    const newEmpresa = { nombreEmpresa, giro, redsocial, telefono, imagePath: req.file.path };
+    const { nombreEmpresa, giro, redsocial, telefono, estatus } = req.body;
+    const newEmpresa = { nombreEmpresa, giro, redsocial, telefono, imagePath: req.file.path, estatus };
     const empresa = new Empresa(newEmpresa);
     await empresa.save();//await porque es un metodo asincrono y va tomar algo de tiempo
     return res.json({
@@ -27,6 +27,20 @@ export async function getEmpresa(req: Request, res: Response): Promise<Response>
     return res.json(empresa);
 };
 
+export async function getEstatusEmpresa(req: Request, res: Response): Promise<Response> {
+    const {estatus} = req.params;
+    let empresasFiltradas;
+
+    if (estatus === 'Todos') {
+        empresasFiltradas = await Empresa.find();
+    }else{
+        empresasFiltradas = await Empresa.find({ estatus: estatus });
+    }
+   
+    return res.json(empresasFiltradas);
+}
+
+
 export async function deleteEmpresa(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     const empresa = await Empresa.findByIdAndRemove(id);
@@ -34,10 +48,11 @@ export async function deleteEmpresa(req: Request, res: Response): Promise<Respon
         await fs.unlink(path.resolve(empresa.imagePath));
     }
     return res.json({ message: 'Empresa eliminada' });
+    
 };
 
 export async function updateEmpresa(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
+    /*const { id } = req.params;
     const { nombreEmpresa, giro, redsocial, telefono } = req.body;
     const updatedEmpresa = await Empresa.findByIdAndUpdate(id, {
         nombreEmpresa,
@@ -48,5 +63,23 @@ export async function updateEmpresa(req: Request, res: Response): Promise<Respon
     return res.json({
         message: 'Empresa modificada',
         updatedEmpresa
+    });*/
+    
+    return res.json({mensaje: 'en proceso'});
+}
+
+export async function updateEstatusEmpresa(req: Request, res: Response): Promise<Response> {
+    const {id} = req.params;
+    const { estatus } = req.body;
+    const updateEstatus = await Empresa.findByIdAndUpdate(id, {
+        estatus
+    },
+    {
+        new: true
+    });
+
+    return res.json({
+        mensaje: 'Estatus modificado', 
+        updateEstatus
     });
 }

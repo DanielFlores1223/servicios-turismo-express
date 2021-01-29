@@ -5,7 +5,8 @@ const schema = new Schema({
     giro: String,
     redsocial: String,
     telefono: String,
-    imagePath: String
+    imagePath: String,
+    estatus: String
 });
 
 export interface IEmpresa extends Document {
@@ -14,6 +15,7 @@ export interface IEmpresa extends Document {
     redsocial: string;
     telefono: string;
     imagePath: string;
+    estatus: string
 }
 
 export default model<IEmpresa>('Empresa', schema);

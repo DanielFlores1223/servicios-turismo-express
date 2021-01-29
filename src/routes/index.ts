@@ -2,7 +2,7 @@ import { Router } from 'express'
 const router = Router();//ejecutamos y me devuelve un objeto para colocar rutas o url en el servidor
 
 import upload from '../libs/multer'//importamos el objeto upload
-import { getEmpresas, createEmpresa, deleteEmpresa, getEmpresa, updateEmpresa } from '../controllers/empresa.controller'
+import { getEmpresas, createEmpresa, deleteEmpresa, getEmpresa, updateEmpresa, getEstatusEmpresa, updateEstatusEmpresa } from '../controllers/empresa.controller'
 import { getEventos, createEvento, deleteEvento, getEvento, updateEvento } from '../controllers/evento.controller'
 import { getHoteles, createHotel, deleteHotel, getHotel, updateHotel } from '../controllers/hotel.controller'
 import { getPhotos, createPhoto, deletePhoto, getPhoto, updatePhoto } from '../controllers/photo.controller'
@@ -20,14 +20,17 @@ router.route('/photos/:id')
     .put(updatePhoto);//when te envie a travez de put,get,dele cualquier peticion vas a usar el metodo ()
 
 
-    router.route('/empresas')
-    .get(getEmpresas)
-    .post(upload.single('image'), createEmpresa);
+router.route('/empresas')
+.get(getEmpresas)
+.post(upload.single('image'), createEmpresa);
 
 router.route('/empresas/:id')
     .get(getEmpresa)
     .delete(deleteEmpresa)
-    .put(updateEmpresa);
+    .put(updateEstatusEmpresa);
+
+router.route('/empresas-estatus/:estatus')
+      .get(getEstatusEmpresa);
 
 
     router.route('/eventos')
