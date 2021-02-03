@@ -11,10 +11,32 @@ export async function getEmpresas(req: Request, res: Response): Promise<Response
 };
 
 export async function createEmpresa(req: Request, res: Response): Promise<Response> {
-    const { nombreEmpresa, giro, redsocial, telefono, estatus } = req.body;
-    const newEmpresa = { nombreEmpresa, giro, redsocial, telefono, imagePath: req.file.path, estatus };
+    const { nombreEmpresa, 
+            giro, 
+            telefono, 
+            estatus, 
+            descripcion, 
+            idComerciante ,
+            paginaWeb,
+            facebook, 
+            twitter } = req.body;
+
+    const newEmpresa = { 
+        nombreEmpresa, 
+        giro,  
+        telefono, 
+        imagePath: req.file.path, 
+        estatus,
+        paginaWeb,
+        facebook,
+        twitter,
+        descripcion,
+        idComerciante
+
+    };
+
     const empresa = new Empresa(newEmpresa);
-    await empresa.save();//await porque es un metodo asincrono y va tomar algo de tiempo
+    await empresa.save();
     return res.json({
         message: 'Empresa guardada Satisfactoriamente',
         empresa
