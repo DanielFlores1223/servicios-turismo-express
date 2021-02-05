@@ -98,9 +98,9 @@ router.put('/:codigo', auth, async(req, res) => {
 })
 
 
-router.post('/modificar/:id', async(req, res) => {
+router.put('/modificar/:id', async(req, res) => {
 
-    let usuairo = await usuarios.findOne({ _id: req.params.id })
+    let usuairo = await usuarios.findOne({ _id:req.params.id })
     if (!usuairo) {
         return res.status(400).send("usuario no encontrado")
     }
