@@ -98,9 +98,9 @@ router.put('/:codigo', auth, async(req, res) => {
 })
 
 
-router.post('/modificar', async(req, res) => {
+router.post('/modificar/:id', async(req, res) => {
 
-    let usuairo = await usuarios.findOne({ correo: req.body.correo })
+    let usuairo = await usuarios.findOne({ _id: req.params.id })
     if (!usuairo) {
         return res.status(400).send("usuario no encontrado")
     }
@@ -108,7 +108,7 @@ router.post('/modificar', async(req, res) => {
     const salt = await bcrypt.genSalt(10)
     const passcifrado = await bcrypt.hash(req.body.password, salt)
 
-    usuario_mod = await usuarios.findOneAndUpdate({ correo: req.body.correo }, {
+    usuario_mod = await usuarios.findOneAndUpdate({ _id: req.params.id}, {
         nombre: req.body.nombre,
         email: req.body.email,
         direccion: req.body.direccion,
@@ -121,7 +121,13 @@ router.post('/modificar', async(req, res) => {
 
     res.send(usuario_mod)
 })
-
+router.get('/ver/:id',async(req,res)=>{
+    let usuario = await usuarios.findOne({ _id: req.params.id })
+    if (!usuario) {
+        return res.status(400).send("usuario no encontrado")
+    }
+    return res.send(usuario).status(201)
+  })
 
 router.post('/eliminar', async(req, res) => {
     console.log(req.body)
