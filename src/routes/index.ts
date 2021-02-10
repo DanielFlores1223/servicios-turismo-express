@@ -9,6 +9,7 @@ import { getPhotos, createPhoto, deletePhoto, getPhoto, updatePhoto } from '../c
 import { getRestaurantes, createRestaurante, deleteRestaurante, getRestaurante, updateRestaurante } from '../controllers/restaurante.controller'
 import { getSitios, createSitio, deleteSitio, getSitio, updateSitio } from '../controllers/sitio.controller'
 import {getConteoHotel, getConteoUsuario,getConteoSitio,getConteoRestaurante,getConteoEvento} from '../controllers/conteo.controller'
+import {createUsuario, login, getUsuarioId} from '../controllers/usuario.controller';
 
 // routes
 router.route('/photos')
@@ -72,6 +73,15 @@ router.route('/sitios/:id')
     .get(getSitio)
     .delete(deleteSitio)
     .put(updateSitio);
+
+router.route('/usuario')
+    .post(createUsuario);
+
+router.route('/usuario/:id')
+    .get(getUsuarioId);
+
+router.route('/login')
+    .post(login);
 
 router.route('/conteo1')
     .get(getConteoHotel);
