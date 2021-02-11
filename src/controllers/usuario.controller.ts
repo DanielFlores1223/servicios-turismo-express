@@ -39,8 +39,8 @@ export async function createUsuario(req: Request, res: Response): Promise<Respon
      if (usuarioExistente) {
           return res.status(404).json({mensaje: 'El correo esta registrado', usuarioExistente});
      }
-
-     const salt = await await bcrypt.genSalt(10);
+ 
+     const salt = await bcrypt.genSalt(10);
      const passcifrado = await bcrypt.hash(password, salt)
 
     const newUsuario = {

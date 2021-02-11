@@ -63,6 +63,17 @@ export async function getEstatusEmpresa(req: Request, res: Response): Promise<Re
 }
 
 
+//En esta funcion se filtra por el giro ademas de que la empresa cuente con el estatus validado
+export async function getEmpresasGiro(req: Request, res: Response): Promise<Response> {
+    const {giro} = req.params;
+    let empresasFiltradas;
+ 
+    empresasFiltradas = await Empresa.find({'$and': [ {giro: giro}, {estatus: 'Validado'} ]});
+    
+    return res.json(empresasFiltradas);
+};
+
+
 export async function deleteEmpresa(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     const empresa = await Empresa.findByIdAndRemove(id);
