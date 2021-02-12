@@ -67,9 +67,13 @@ export async function getEstatusEmpresa(req: Request, res: Response): Promise<Re
 export async function getEmpresasGiro(req: Request, res: Response): Promise<Response> {
     const {giro} = req.params;
     let empresasFiltradas;
- 
-    empresasFiltradas = await Empresa.find({'$and': [ {giro: giro}, {estatus: 'Validado'} ]});
-    
+   
+    if(giro == 'Todos'){
+        empresasFiltradas = await Empresa.find({estatus: 'Validado'});
+    }else{
+        empresasFiltradas = await Empresa.find({'$and': [ {giro: giro}, {estatus: 'Validado'} ]});
+    }
+        
     return res.json(empresasFiltradas);
 };
 
@@ -85,18 +89,22 @@ export async function deleteEmpresa(req: Request, res: Response): Promise<Respon
 };
 
 export async function updateEmpresa(req: Request, res: Response): Promise<Response> {
-    /*const { id } = req.params;
-    const { nombreEmpresa, giro, redsocial, telefono } = req.body;
+    const { id } = req.params;
+    const { nombreEmpresa, giro, paginaWeb, telefono, facebook, twitter, descripcion } = req.body;
     const updatedEmpresa = await Empresa.findByIdAndUpdate(id, {
         nombreEmpresa,
         giro,
-        redsocial,
-        telefono
+        paginaWeb,
+        telefono,
+        facebook,
+        twitter,
+        descripcion
     });
+    
     return res.json({
         message: 'Empresa modificada',
         updatedEmpresa
-    });*/
+    });
     
     return res.json({mensaje: 'en proceso'});
 }
