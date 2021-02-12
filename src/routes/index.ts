@@ -8,13 +8,9 @@ import { getHoteles, createHotel, deleteHotel, getHotel, updateHotel } from '../
 import { getPhotos, createPhoto, deletePhoto, getPhoto, updatePhoto } from '../controllers/photo.controller'
 import { getRestaurantes, createRestaurante, deleteRestaurante, getRestaurante, updateRestaurante } from '../controllers/restaurante.controller'
 import { getSitios, createSitio, deleteSitio, getSitio, updateSitio } from '../controllers/sitio.controller'
-<<<<<<< HEAD
-import {getConteoHotel, getConteoUsuario,getConteoSitio,getConteoRestaurante,getConteoEvento,getConteoOtros, getConteoComercio} from '../controllers/conteo.controller'
-import {createUsuario, login, getUsuarioId} from '../controllers/usuario.controller';
-=======
-import {getConteoHotel, getConteoUsuario,getConteoSitio,getConteoRestaurante,getConteoEvento,getConteoOtros} from '../controllers/conteo.controller'
+import {getConteoHotel, getConteoUsuario,getConteoSitio,getConteoRestaurante,getConteoEvento,getConteoOtros,getConteoComercio} from '../controllers/conteo.controller'
 import {createUsuario, login, getUsuarioId, deleteUsuario, getUsuarioTipo, updateUsuario} from '../controllers/usuario.controller';
->>>>>>> d876120710e1fa5d3aef006811973d67b7c1b8f0
+
 
 // routes
 router.route('/photos')
