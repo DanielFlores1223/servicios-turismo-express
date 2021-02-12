@@ -8,9 +8,8 @@ import { getHoteles, createHotel, deleteHotel, getHotel, updateHotel } from '../
 import { getPhotos, createPhoto, deletePhoto, getPhoto, updatePhoto } from '../controllers/photo.controller'
 import { getRestaurantes, createRestaurante, deleteRestaurante, getRestaurante, updateRestaurante } from '../controllers/restaurante.controller'
 import { getSitios, createSitio, deleteSitio, getSitio, updateSitio } from '../controllers/sitio.controller'
-import {getConteoHotel, getConteoUsuario,getConteoSitio,getConteoRestaurante,getConteoEvento} from '../controllers/conteo.controller'
-
-import {createUsuario, login, getUsuarioId, getUsuarioTipo, deleteUsuario, updateUsuario} from '../controllers/usuario.controller';
+import {getConteoHotel, getConteoUsuario,getConteoSitio,getConteoRestaurante,getConteoEvento,getConteoOtros} from '../controllers/conteo.controller'
+import {createUsuario, login, getUsuarioId} from '../controllers/usuario.controller';
 
 // routes
 router.route('/photos')
@@ -81,22 +80,14 @@ router.route('/sitios/:id')
     .delete(deleteSitio)
     .put(updateSitio);
 
-//Rutas de Usuario
 router.route('/usuario')
     .post(createUsuario);
 
 router.route('/usuario/:id')
-    .get(getUsuarioId)
-    .delete(deleteUsuario)
-    .put(updateUsuario);
-
-router.route('/usuario-tipo/:tipo')
-    .get(getUsuarioTipo);
+    .get(getUsuarioId);
 
 router.route('/login')
     .post(login);
-
-
 
 router.route('/conteo1')
     .get(getConteoHotel);
@@ -108,5 +99,7 @@ router.route('/conteo4')
     .get(getConteoRestaurante);
 router.route('/conteo5')
     .get(getConteoEvento);
+router.route('/conteo6')
+    .get(getConteoOtros);
 
 export default router;
