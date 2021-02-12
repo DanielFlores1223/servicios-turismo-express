@@ -8,7 +8,7 @@ import { getHoteles, createHotel, deleteHotel, getHotel, updateHotel } from '../
 import { getPhotos, createPhoto, deletePhoto, getPhoto, updatePhoto } from '../controllers/photo.controller'
 import { getRestaurantes, createRestaurante, deleteRestaurante, getRestaurante, updateRestaurante } from '../controllers/restaurante.controller'
 import { getSitios, createSitio, deleteSitio, getSitio, updateSitio } from '../controllers/sitio.controller'
-import {getConteoHotel, getConteoUsuario,getConteoSitio,getConteoRestaurante,getConteoEvento,getConteoOtros} from '../controllers/conteo.controller'
+import {getConteoHotel, getConteoUsuario,getConteoSitio,getConteoRestaurante,getConteoEvento,getConteoOtros, getConteoComercio} from '../controllers/conteo.controller'
 import {createUsuario, login, getUsuarioId} from '../controllers/usuario.controller';
 
 // routes
@@ -98,5 +98,7 @@ router.route('/conteo5')
     .get(getConteoEvento);
 router.route('/conteo6')
     .get(getConteoOtros);
+router.route('/conteo7')
+    .get(getConteoComercio);
 
 export default router;
