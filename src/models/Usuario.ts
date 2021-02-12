@@ -8,15 +8,14 @@ const schema = new Schema({
       },
       email:{
           type: String,
-          require:true
+          require:true,
+          unique: true
       },
       direccion:{
           type: String,
-          require:true
       },
       telefono:{
           type: String,
-          require:true
       },
       password:{
           type: String,

@@ -26,6 +26,17 @@ export async function getUsuarioId(req: Request, res: Response): Promise<Respons
     
 };
 
+export async function getUsuarioTipo(req: Request, res: Response): Promise<Response> {
+     const {tipo} = req.params;
+     
+          const usuarios = await Usuario.find({tipo: tipo});
+          if (!usuarios) {
+               return res.status(404).send(false);
+          }
+     
+          return res.status(201).send(usuarios);  
+};
+
 export async function createUsuario(req: Request, res: Response): Promise<Response> {
     const {nombre,
      email,
@@ -42,21 +53,74 @@ export async function createUsuario(req: Request, res: Response): Promise<Respon
  
      const salt = await bcrypt.genSalt(10);
      const passcifrado = await bcrypt.hash(password, salt)
-
-    const newUsuario = {
-     nombre,
-     email,
-     direccion,
-     telefono,
-     password: passcifrado,
-     tipo
-    }
+     
+     let newUsuario;
+     if(tipo === 'admin'){
+          newUsuario = {
+          nombre,
+          email,
+          direccion,
+          telefono,
+          password: passcifrado,
+          tipo
+         }
+     }else{
+          //afiliado
+           newUsuario = {
+               nombre,
+               email,
+               password: passcifrado,
+               tipo
+              }
+     }
 
     const usuario = new Usuario(newUsuario);
     await usuario.save();
     
      return res.json({mensaje: 'El usuario se guardo', usuario});
 };
+
+export async function updateUsuario(req: Request, res: Response): Promise<Response> {
+     const {nombre,
+      email,
+      direccion,
+      telefono,
+      password,
+      } = req.body;
+
+      const {id} = req.params;
+ 
+      const usuarioExistente = await Usuario.findById(id);
+ 
+      if (!usuarioExistente) {
+           return res.status(404).json({mensaje: 'Usuario no existe'});
+      }
+      
+      let updateUsuario
+      if (usuarioExistente.tipo === 'admin') {
+          updateUsuario = await Usuario.findByIdAndUpdate(id, {
+               nombre,
+               direccion,
+               telefono
+           });
+      }else{
+           //afiliado
+           updateUsuario = await Usuario.findByIdAndUpdate(id, {
+               nombre,
+           });
+      }
+      
+      //en caso de que se requiera un cambio de contraseña
+      if (password !== '') {
+          const salt = await bcrypt.genSalt(10);
+          const passcifrado = await bcrypt.hash(password, salt)
+          const updatePass = await Usuario.findByIdAndUpdate(id, {
+               password: passcifrado,
+          });
+      }
+  
+      return res.json({mensaje: 'El usuario se modificó correctamente', updateUsuario});
+ };
 
 export async function login(req: Request, res: Response): Promise<Response> {
      const {email, password} = req.body;
@@ -74,4 +138,11 @@ export async function login(req: Request, res: Response): Promise<Response> {
      //const jwtoken = usuario.generadorJWT();
      const envio = [usuario._id ,usuario.tipo];
      return res.status(201).send({ envio });
+ };
+
+ export async function deleteUsuario(req: Request, res: Response): Promise<Response> {
+     const { id } = req.params;
+     const usuario = await Usuario.findByIdAndRemove(id);
+     
+     return res.status(201).json({ message: 'Usuario eliminado' });
  };
