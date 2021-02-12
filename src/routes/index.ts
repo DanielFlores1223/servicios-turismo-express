@@ -32,6 +32,9 @@ router.route('/empresas/:id')
     .delete(deleteEmpresa)
     .put(updateEstatusEmpresa);
 
+router.route('/empresas-plus/:id')
+    .put(updateEmpresa);
+
 router.route('/empresas-estatus/:estatus')
       .get(getEstatusEmpresa);
 
