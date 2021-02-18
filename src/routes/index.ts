@@ -2,7 +2,7 @@ import { Router } from 'express'
 const router = Router();//ejecutamos y me devuelve un objeto para colocar rutas o url en el servidor
 
 import upload from '../libs/multer'//importamos el objeto upload
-import { getEmpresas, createEmpresa, deleteEmpresa, getEmpresa, updateEmpresa, getEstatusEmpresa, updateEstatusEmpresa, getEmpresasGiro,updateEmpresaImage } from '../controllers/empresa.controller'
+import { getEmpresas, createEmpresa, deleteEmpresa, getEmpresa, updateEmpresa, getEstatusEmpresa, updateEstatusEmpresa, getEmpresasGiro,updateEmpresaImage,solicitudesId } from '../controllers/empresa.controller'
 import { getEventos, createEvento, deleteEvento, getEvento, updateEvento, updateEventoImage } from '../controllers/evento.controller'
 import { getHoteles, createHotel, deleteHotel, getHotel, updateHotel } from '../controllers/hotel.controller'
 import { getPhotos, createPhoto, deletePhoto, getPhoto, updatePhoto } from '../controllers/photo.controller'
@@ -43,6 +43,9 @@ router.route('/empresas-estatus/:estatus')
 
 router.route('/empresas-giro/:giro')
     .get(getEmpresasGiro);
+
+router.route('/empresas-solicitudes-usuario/:id')
+    .get(solicitudesId);
 
 //Rutas de Eventos
 router.route('/eventos')

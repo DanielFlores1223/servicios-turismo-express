@@ -147,3 +147,10 @@ export async function updateEstatusEmpresa(req: Request, res: Response): Promise
         updateEstatus
     });
 }
+
+export async function solicitudesId(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const solicitudes = await Empresa.find({"idComerciante":id});
+    console.log(id);
+    return res.json(solicitudes);
+};
