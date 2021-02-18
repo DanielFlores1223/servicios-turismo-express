@@ -7,8 +7,9 @@ import Evento,{IEvento}from '../models/Evento';
 import Empresa,{IEmpresa}from '../models/Empresa';
 import Sitio,{ISitio}from '../models/Sitio';
 import Usuario from '../models/Usuario';
-const mongoose=require('mongoose');
-const Comerciante= mongoose.model('comerciantes');
+//const mongoose=require('mongoose');
+//const Comerciante= mongoose.model('comerciantes');
+
 export async function getConteoHotel(req: Request, res: Response): Promise<Response> {
     const cont = await Empresa.find({$and:[{"giro":"Hotel"},{"estatus":"Validado"}]}).count();  //retorna el numero de todos las hoteles almacenados
     return res.json(cont);

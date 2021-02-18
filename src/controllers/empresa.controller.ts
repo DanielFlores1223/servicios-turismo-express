@@ -106,7 +106,30 @@ export async function updateEmpresa(req: Request, res: Response): Promise<Respon
         updatedEmpresa
     });
     
-    return res.json({mensaje: 'en proceso'});
+}
+
+export async function updateEmpresaImage(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const empresaImage = await Empresa.findById(id);
+
+    if(empresaImage){
+        //Eliminamos la imagen del servidor
+        await fs.unlink(path.resolve(empresaImage.imagePath));
+    }
+
+    const updatedEmpresa = await Empresa.findByIdAndUpdate(id, {
+        imagePath: req.file.path
+    },
+    {   
+        //devuelve el objeto con las modificaciones hechas
+        new: true
+    });
+    
+    return res.json({
+        message: 'Empresa modificada image',
+        updatedEmpresa
+    });
+    
 }
 
 export async function updateEstatusEmpresa(req: Request, res: Response): Promise<Response> {

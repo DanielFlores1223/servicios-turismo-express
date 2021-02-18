@@ -15,7 +15,7 @@ const app: Application = express();
 // Settings
 //utliza process.env si no existe utliza el 4000
 app.set('port', process.env.PORT || 4000);
-app.use(cors({ origin: 'http://localhost:4200' }));
+//app.use(cors({ origin: 'http://localhost:4200' }));
 
 // Middlewares
 app.use(morgan('dev'));//utiliza el modulo morgan en la opcion de desarrollo
@@ -24,8 +24,8 @@ app.use(express.json());//configuracion para recibir y enviar archivos json
 
 // Routes
 app.use('/api', indexRoutes);
-app.use('/comerciante',comercianteRouter);
-app.use('/usuario', usuarioRouter);
+//app.use('/comerciante',comercianteRouter);
+//app.use('/usuario', usuarioRouter);
 
 app.use('/uploads', express.static(path.resolve('uploads')));//el metodo resolve dice desde el inicio de la app va a la carpeta uploads y esto es lo que el navegador puede acceder
 

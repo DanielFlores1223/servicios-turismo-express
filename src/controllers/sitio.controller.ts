@@ -51,3 +51,23 @@ export async function updateSitio(req: Request, res: Response): Promise<Response
         updatedSitio
     });
 }
+
+export async function updateSitioImage(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    const sitioImage = await Sitio.findById(id);
+
+    if (sitioImage) {
+        //Eliminamos la imagen del servidor
+        await fs.unlink(path.resolve(sitioImage.imagePath));
+    }
+
+    const updatedSitio = await Sitio.findByIdAndUpdate(id, {
+       imagePath: req.file.path
+    });
+    
+    return res.json({
+        message: 'Sitio imagen modificado',
+        updatedSitio
+    });
+}

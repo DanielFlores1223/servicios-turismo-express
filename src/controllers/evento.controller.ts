@@ -51,3 +51,23 @@ export async function updateEvento(req: Request, res: Response): Promise<Respons
         updatedEvento
     });
 }
+
+export async function updateEventoImage(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    const eventoImage = await Evento.findById(id);
+
+    if (eventoImage) {
+        //Eliminamos la imagen del servidor
+        await fs.unlink(path.resolve(eventoImage.imagePath));
+    }
+  
+    const updatedEvento = await Evento.findByIdAndUpdate(id, {
+        imagePath: req.file.path
+    });
+
+    return res.json({
+        message: 'Evento Imagen modificado',
+        updatedEvento
+    });
+}
