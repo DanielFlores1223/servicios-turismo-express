@@ -31,7 +31,8 @@ export async function createEmpresa(req: Request, res: Response): Promise<Respon
         facebook,
         twitter,
         descripcion,
-        idComerciante
+        idComerciante,
+        observaciones: ''
 
     };
 
@@ -145,6 +146,22 @@ export async function updateEstatusEmpresa(req: Request, res: Response): Promise
     return res.json({
         mensaje: 'Estatus modificado', 
         updateEstatus
+    });
+}
+
+export async function updateObservaciones(req: Request, res: Response): Promise<Response> {
+    const {id} = req.params;
+    const { observaciones } = req.body;
+    const updateObservaciones = await Empresa.findByIdAndUpdate(id, {
+        observaciones
+    },
+    {
+        new: true
+    });
+
+    return res.json({
+        mensaje: 'Observaciones', 
+        updateObservaciones
     });
 }
 

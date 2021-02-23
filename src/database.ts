@@ -4,7 +4,8 @@ export async function startConnection() {
     const db = await connect('mongodb+srv://dav67891h:pPFPpg948AJ4jfWW@cluster0.0oalz.mongodb.net/imagenes',{
         //aqui pongan los parametros de su cluster de mongodb
         useNewUrlParser: true,
-        useFindAndModify: false 
+        useFindAndModify: false ,
+        useCreateIndex: true
     });
     console.log('Database is connected');
 }

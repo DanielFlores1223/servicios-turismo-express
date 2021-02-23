@@ -2,10 +2,10 @@ import express, { Application} from 'express';
 import morgan from 'morgan';
 import path from 'path';
 import cors from 'cors';
-require('./models/comerciantes');
-require('./models/usuarios');
-const comercianteRouter = require('./routes/comerciante');
-const usuarioRouter = require('./routes/usuario');
+//require('./models/comerciantes');
+//require('./models/usuarios');
+//const comercianteRouter = require('./routes/comerciante');
+//const usuarioRouter = require('./routes/usuario');
 
 import indexRoutes from './routes/index'
 
@@ -15,7 +15,10 @@ const app: Application = express();
 // Settings
 //utliza process.env si no existe utliza el 4000
 app.set('port', process.env.PORT || 4000);
-//app.use(cors({ origin: 'http://localhost:4200' }));
+app.use(cors({ 
+     origin: '*' 
+     //origin: 'https://camaracomercio.netlify.app/'
+}));
 
 // Middlewares
 app.use(morgan('dev'));//utiliza el modulo morgan en la opcion de desarrollo

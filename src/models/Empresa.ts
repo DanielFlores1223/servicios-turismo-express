@@ -29,7 +29,8 @@ const schema = new Schema({
     imagePath: String,
     estatus: String,
     descripcion: String,
-    idComerciante: String
+    idComerciante: String,
+    observaciones: String
 
 });
 
@@ -43,7 +44,8 @@ export interface IEmpresa extends Document {
     imagePath: string;
     estatus: string,
     descripcion: string,
-    idComerciante: string
+    idComerciante: string,
+    observaciones: string
 }
 
 export default model<IEmpresa>('Empresa', schema);
