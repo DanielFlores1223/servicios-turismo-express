@@ -43,7 +43,16 @@ export async function createUsuario(req: Request, res: Response): Promise<Respon
      direccion,
      telefono,
      password,
-     tipo} = req.body;
+     tipo,
+     permisos} = req.body;
+
+    const {sitios,
+     eventos,
+     empresasValidadas,
+     solicitudesEmpresas,
+     administradores,
+     afiliados,
+    carrusel} = permisos;
 
      const usuarioExistente = await Usuario.findOne({email: email});
 
@@ -57,12 +66,21 @@ export async function createUsuario(req: Request, res: Response): Promise<Respon
      let newUsuario;
      if(tipo === 'admin'){
           newUsuario = {
-          nombre,
-          email,
-          direccion,
-          telefono,
-          password: passcifrado,
-          tipo
+               nombre,
+               email,
+               direccion,
+               telefono,
+               password: passcifrado,
+               tipo,
+               permisos: {
+                    sitios,
+                    eventos,
+                    empresasValidadas,
+                    solicitudesEmpresas,
+                    administradores,
+                    afiliados,
+                     carrusel
+               }
          }
      }else{
           //afiliado
@@ -98,10 +116,29 @@ export async function updateUsuario(req: Request, res: Response): Promise<Respon
       
       let updateUsuario
       if (usuarioExistente.tipo === 'admin') {
+          const {permisos} = req.body;
+
+          const {sitios,
+               eventos,
+               empresasValidadas,
+               solicitudesEmpresas,
+               administradores,
+               afiliados,
+               carrusel} = permisos;
+
           updateUsuario = await Usuario.findByIdAndUpdate(id, {
                nombre,
                direccion,
-               telefono
+               telefono,
+               permisos: {
+                    sitios,
+                    eventos,
+                    empresasValidadas,
+                    solicitudesEmpresas,
+                    administradores,
+                    afiliados,
+                     carrusel
+               }
            });
       }else{
            //afiliado
@@ -136,7 +173,7 @@ export async function login(req: Request, res: Response): Promise<Response> {
           return res.status(404).json({mensaje: 'Correo o contraseña invalidos'});
      
      //const jwtoken = usuario.generadorJWT();
-     const envio = [usuario._id ,usuario.tipo];
+     const envio = [usuario._id ,usuario.tipo, usuario.permisos];
      return res.status(201).send({ envio });
  };
 

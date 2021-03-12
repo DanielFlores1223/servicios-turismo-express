@@ -1,3 +1,4 @@
+import { strictEqual } from 'assert';
 import { Schema, model, Document } from 'mongoose';
 const jwt = require('jsonwebtoken');
 
@@ -24,6 +25,15 @@ const schema = new Schema({
       tipo:{
           type: String,
           required: false
+      },
+      permisos: {
+          sitios: {type: String},
+          eventos: {type: String},
+          empresasValidadas: {type: String},
+          solicitudesEmpresas: {type: String},
+          administradores: {type: String},
+          afiliados: {type: String},
+          carrusel: {type: String}
       }
  });
 
@@ -40,7 +50,16 @@ export interface IUsuario extends Document {
       direccion: string,
       telefono: string,
       password: string,
-      tipo: string
+      tipo: string,
+      permisos: {
+        sitios: {type: string},
+        eventos: {type: string},
+        empresasValidadas: {type: string},
+        solicitudesEmpresas: {type: string},
+        administradores: {type: string},
+        afiliados: {type: string},
+        carrusel: {type: string}
+    }
  }
 
  
