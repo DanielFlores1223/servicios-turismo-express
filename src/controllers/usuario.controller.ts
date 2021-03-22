@@ -2,8 +2,6 @@ import { Request, Response } from 'express';
 import path from 'path';
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
-//const auth = require('../middleware/auth');
-//const mongoose = require('mongoose');
 const { JsonWebTokenError } = require('jsonwebtoken');
 
 //modelo

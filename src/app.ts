@@ -2,10 +2,6 @@ import express, { Application} from 'express';
 import morgan from 'morgan';
 import path from 'path';
 import cors from 'cors';
-//require('./models/comerciantes');
-//require('./models/usuarios');
-//const comercianteRouter = require('./routes/comerciante');
-//const usuarioRouter = require('./routes/usuario');
 
 import indexRoutes from './routes/index'
 
@@ -27,8 +23,6 @@ app.use(express.json());//configuracion para recibir y enviar archivos json
 
 // Routes
 app.use('/api', indexRoutes);
-//app.use('/comerciante',comercianteRouter);
-//app.use('/usuario', usuarioRouter);
 
 app.use('/uploads', express.static(path.resolve('uploads')));//el metodo resolve dice desde el inicio de la app va a la carpeta uploads y esto es lo que el navegador puede acceder
 

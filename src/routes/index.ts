@@ -2,12 +2,10 @@ import { Router } from 'express'
 const router = Router();//ejecutamos y me devuelve un objeto para colocar rutas o url en el servidor
 
 import upload from '../libs/multer'//importamos el objeto upload
-import { getEmpresas, createEmpresa, deleteEmpresa, getEmpresa, updateEmpresa, getEstatusEmpresa, updateEstatusEmpresa, getEmpresasGiro,updateEmpresaImage,solicitudesId, updateObservaciones } from '../controllers/empresa.controller'
-import { getEventos, createEvento, deleteEvento, getEvento, updateEvento, updateEventoImage } from '../controllers/evento.controller'
-import { getHoteles, createHotel, deleteHotel, getHotel, updateHotel } from '../controllers/hotel.controller'
+import { getEmpresas, createEmpresa, deleteEmpresa, getEmpresa, updateEmpresa, getEstatusEmpresa, updateEstatusEmpresa, getEmpresasGiro,updateEmpresaImage,solicitudesId, updateObservaciones } from '../controllers/empresa.controller';
+import { getEventos, createEvento, deleteEvento, getEvento, updateEvento, updateEventoImage } from '../controllers/evento.controller';
 import { getPhotos, createPhoto, deletePhoto, getPhoto, updatePhoto } from '../controllers/photo.controller'
-import { getRestaurantes, createRestaurante, deleteRestaurante, getRestaurante, updateRestaurante } from '../controllers/restaurante.controller'
-import { getSitios, createSitio, deleteSitio, getSitio, updateSitio, updateSitioImage } from '../controllers/sitio.controller'
+import { getSitios, createSitio, deleteSitio, getSitio, updateSitio, updateSitioImage } from '../controllers/sitio.controller';
 import {getConteoHotel, getConteoUsuario,getConteoSitio,getConteoRestaurante,getConteoEvento,getConteoOtros,getConteoComercio} from '../controllers/conteo.controller'
 import {createUsuario, login, getUsuarioId, deleteUsuario, getUsuarioTipo, updateUsuario} from '../controllers/usuario.controller';
 
@@ -62,28 +60,6 @@ router.route('/eventos/:id')
 
 router.route('/eventos-image/:id')
     .put(upload.single('image'), updateEventoImage);
-
-
-//Hoteles (rutas a eliminar, no se utilizan)
-router.route('/hoteles')
-    .get(getHoteles)
-    .post(upload.single('image'), createHotel);
-
-router.route('/hoteles/:id')
-    .get(getHotel)
-    .delete(deleteHotel)
-    .put(updateHotel);
-
-
-//Restaurantes (rutas a eliminar, no se utilizan)  
-router.route('/restaurantes')
-    .get(getRestaurantes)
-    .post(upload.single('image'), createRestaurante);
-
-router.route('/restaurantes/:id')
-    .get(getRestaurante)
-    .delete(deleteRestaurante)
-    .put(updateRestaurante);
 
 //Rutas de Sitios turisticos
 router.route('/sitios')
