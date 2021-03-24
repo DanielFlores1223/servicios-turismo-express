@@ -10,6 +10,14 @@ export async function getSitios(req: Request, res: Response): Promise<Response> 
     return res.json(sitios);
 };
 
+export async function getSitiosCategoria(req: Request, res:Response): Promise<Response> {
+   const { categoria } = req.params;
+
+   const sitios = await Sitio.find({categoria: categoria});
+
+   return res.json(sitios);
+}
+
 export async function createSitio(req: Request, res: Response): Promise<Response> {
     const { nombresitio, subtitulo, descripcioncorta, contenido1, contenido2, categoria} = req.body;
     const newSitio = { nombresitio, subtitulo, descripcioncorta, contenido1, contenido2, imagePath: req.file.path, categoria };

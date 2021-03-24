@@ -5,7 +5,7 @@ import upload from '../libs/multer'//importamos el objeto upload
 import { getEmpresas, createEmpresa, deleteEmpresa, getEmpresa, updateEmpresa, getEstatusEmpresa, updateEstatusEmpresa, getEmpresasGiro,updateEmpresaImage,solicitudesId, updateObservaciones } from '../controllers/empresa.controller';
 import { getEventos, createEvento, deleteEvento, getEvento, updateEvento, updateEventoImage } from '../controllers/evento.controller';
 import { getPhotos, createPhoto, deletePhoto, getPhoto, updatePhoto } from '../controllers/photo.controller'
-import { getSitios, createSitio, deleteSitio, getSitio, updateSitio, updateSitioImage } from '../controllers/sitio.controller';
+import { getSitios, createSitio, deleteSitio, getSitio, updateSitio, updateSitioImage, getSitiosCategoria } from '../controllers/sitio.controller';
 import {getConteoHotel, getConteoUsuario,getConteoSitio,getConteoRestaurante,getConteoEvento,getConteoOtros,getConteoComercio} from '../controllers/conteo.controller'
 import {createUsuario, login, getUsuarioId, deleteUsuario, getUsuarioTipo, updateUsuario} from '../controllers/usuario.controller';
 
@@ -70,6 +70,9 @@ router.route('/sitios/:id')
     .get(getSitio)
     .delete(deleteSitio)
     .put(updateSitio);
+
+router.route('/sitios-categoria/:categoria')
+    .get(getSitiosCategoria);
 
 router.route('/sitios-image/:id')
     .put(upload.single('image'),updateSitioImage);
