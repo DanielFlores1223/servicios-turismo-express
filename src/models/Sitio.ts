@@ -6,8 +6,8 @@ const schema = new Schema({
     descripcioncorta: String,
     contenido1: String,
     contenido2: String,
-    imagePath: String
-
+    imagePath: String,
+    categoria: String
 });
 
 export interface ISitio extends Document {
@@ -17,7 +17,7 @@ export interface ISitio extends Document {
     contenido1: string;
     contenido2: string;
     imagePath: string;
-
+    categoria: string;
 
 }
 

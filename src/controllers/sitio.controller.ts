@@ -11,8 +11,8 @@ export async function getSitios(req: Request, res: Response): Promise<Response> 
 };
 
 export async function createSitio(req: Request, res: Response): Promise<Response> {
-    const { nombresitio, subtitulo, descripcioncorta, contenido1, contenido2 } = req.body;
-    const newSitio = { nombresitio, subtitulo, descripcioncorta, contenido1, contenido2, imagePath: req.file.path };
+    const { nombresitio, subtitulo, descripcioncorta, contenido1, contenido2, categoria} = req.body;
+    const newSitio = { nombresitio, subtitulo, descripcioncorta, contenido1, contenido2, imagePath: req.file.path, categoria };
     const sitio = new Sitio(newSitio);
     await sitio.save();
     return res.json({
@@ -38,13 +38,14 @@ export async function deleteSitio(req: Request, res: Response): Promise<Response
 
 export async function updateSitio(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const { nombresitio, subtitulo, descripcioncorta, contenido1, contenido2 } = req.body;
+    const { nombresitio, subtitulo, descripcioncorta, contenido1, contenido2, categoria } = req.body;
     const updatedSitio = await Sitio.findByIdAndUpdate(id, {
         nombresitio, 
         subtitulo, 
         descripcioncorta, 
         contenido1, 
-        contenido2 
+        contenido2,
+        categoria 
     });
     return res.json({
         message: 'Sitio modificado',
